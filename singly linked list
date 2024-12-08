@@ -1,0 +1,97 @@
+class Node:
+    def __init__(self, item=None, link=None):
+        self.item = item
+        self.link = link
+
+class SLL:
+    def __init__(self,head=None):
+        self.head = head
+
+    def is_empty(self):
+        return self.head == None
+
+    def insert_at_first(self,data):
+        node = Node(data,self.head)
+        self.head = node
+
+    def insert_at_last(self,data):
+        
+        node = Node(data)
+        if not self.is_empty():
+            temp = self.head
+            while temp.link is not None:
+                temp = temp.link
+            temp.link = node
+        else:
+            self.head = node
+
+    def search(self,data):
+        temp = self.head
+        
+        while temp is not None:
+
+            if temp == self.head:
+                 node = Node(data,self.head)
+                 self.head = node
+                
+
+            else:
+                if temp.item == data:   
+                    return [temp,prev_temp]
+                prev_temp = temp
+                temp = temp.link 
+
+          
+                 
+
+           
+             
+
+            
+        
+
+        print("cur_temp in search:", temp.item)
+        print("prev_temp in search:", prev_temp.item)
+            
+
+    def insert_after(self,temp,data):
+        # if temp is not None:
+            node = Node(data,temp[0].link)
+            temp[0].link = node        
+
+    def insert_before(self,prev_temp,data):
+             node = Node(data,prev_temp[1].link)
+             print(type(node))
+            #  if prev_temp[1].item == None:
+            #      prev_temp = self.head
+            #      self.head = prev_temp.link
+
+        #     if prev_temp[1].item == None:
+        #         node.link = self.head
+        #         self.head = node
+        #         print(prev_temp[1].item)
+        # # print("prev_temp_before", prev_temp.item)
+        #     else:
+        #         prev_temp[1].link = node
+        # print (prev_temp[1].item)
+                  
+
+    def print_list(self):
+        temp = self.head
+
+        while temp is not None:
+            print(temp.item, end=' ')
+            temp = temp.link
+
+sll = SLL()
+sll.insert_at_first(30)
+sll.insert_at_last(40)
+sll.insert_at_first(20)
+sll.insert_at_last(50)
+sll.insert_at_first(10)
+sll.insert_before(sll.search(20),7)
+sll.insert_after(sll.search(40),25)
+
+
+
+sll.print_list()
