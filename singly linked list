@@ -7,15 +7,14 @@ class Node:
 class SLL:
     def __init__(self,head=None):
         self.head = head
-
+#-----------------------------working fine--------------------------------
     def is_empty(self):
         return self.head == None
-
+#-----------------------------working fine--------------------------------
     def insert_at_first(self,data):
         node = Node(data,self.head)
         self.head = node
-
-
+#-----------------------------working fine--------------------------------
     def insert_at_last(self,data):
         
         node = Node(data)
@@ -26,8 +25,7 @@ class SLL:
             temp.link = node
         else:
             self.head = node
-
-
+#-----------------------------working fine--------------------------------
     def search(self,data):
         temp = self.head    
         prev_temp = self.head
@@ -38,20 +36,19 @@ class SLL:
             prev_temp = temp
             temp = temp.link 
         return [temp,prev_temp]                   
-
-
+#-----------------------------working fine--------------------------------
     def insert_after(self,temp,data):
         # if temp is not None:
             node = Node(data,temp[0].link)
             temp[0].link = node   
                  
-
+#-----------------------------working fine--------------------------------
     def insert_before(self,prev_temp,data):
         
-        print(prev_temp[1].link)
+        '''print(prev_temp[1].link)
         print(prev_temp[1].item)
         print(prev_temp[0].link)
-        print(prev_temp[0].item)
+        print(prev_temp[0].item)'''
         
         
         if prev_temp[0] == self.head:
@@ -62,11 +59,11 @@ class SLL:
             node = Node(data,prev_temp[1].link)
             prev_temp[1].link = node
             
-
+ #-----------------------------working fine-------------------------------
     def delete_first(self):
         self.head = self.head.link            # type: ignore
             
-
+ #-----------------------------working fine-------------------------------
     def delete_last(self):
         temp = self.head
         
@@ -81,14 +78,30 @@ class SLL:
                 #print(temp.item)
                 temp = temp.link
             temp.link = None
-            
-
-    def print_list(self):
+                    
+#-----------------------------working fine--------------------------------
+    '''def print_list(self):
         temp = self.head
 
         while temp is not None:
             print(temp.item, end=' ')
-            temp = temp.link
+            temp = temp.link'''
+            
+    def __iter__(self):
+        return SLLIterator(self.head)
+
+#----------------------------iterator class-------------------------------
+class SLLIterator:
+    def __init__(self,start):
+        self.current=start
+    def __iter__(self):
+        return self
+    def __next__(self):
+        if not self.current:
+            raise StopIteration
+        data=self.current.item
+        self.current=self.current.link
+        return data
 
 sll = SLL()
 sll.insert_at_first(30)
@@ -100,6 +113,8 @@ sll.insert_before(sll.search(20),7)
 sll.insert_after(sll.search(40),25)
 sll.delete_first()
 sll.delete_last()
-sll.print_list()
+# sll.print_list()
 
+for x in sll:
+    print(x, end=' ')
 
