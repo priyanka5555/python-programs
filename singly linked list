@@ -1,3 +1,4 @@
+
 class Node:
     def __init__(self, item=None, link=None):
         self.item = item
@@ -14,6 +15,7 @@ class SLL:
         node = Node(data,self.head)
         self.head = node
 
+
     def insert_at_last(self,data):
         
         node = Node(data)
@@ -25,56 +27,61 @@ class SLL:
         else:
             self.head = node
 
+
     def search(self,data):
-        temp = self.head
-        
+        temp = self.head    
+        prev_temp = self.head
         while temp is not None:
-
-            if temp == self.head:
-                 node = Node(data,self.head)
-                 self.head = node
-                
-
-            else:
-                if temp.item == data:   
-                    return [temp,prev_temp]
-                prev_temp = temp
-                temp = temp.link 
-
-          
-                 
-
            
-             
+            if temp.item == data:   
+                return [temp,prev_temp]
+            prev_temp = temp
+            temp = temp.link 
+        return [temp,prev_temp]                   
 
-            
-        
-
-        print("cur_temp in search:", temp.item)
-        print("prev_temp in search:", prev_temp.item)
-            
 
     def insert_after(self,temp,data):
         # if temp is not None:
             node = Node(data,temp[0].link)
-            temp[0].link = node        
+            temp[0].link = node   
+                 
 
     def insert_before(self,prev_temp,data):
-             node = Node(data,prev_temp[1].link)
-             print(type(node))
-            #  if prev_temp[1].item == None:
-            #      prev_temp = self.head
-            #      self.head = prev_temp.link
+        
+        print(prev_temp[1].link)
+        print(prev_temp[1].item)
+        print(prev_temp[0].link)
+        print(prev_temp[0].item)
+        
+        
+        if prev_temp[0] == self.head:
+            node = Node(data,prev_temp[1])
+            self.head = node
+    
+        else:
+            node = Node(data,prev_temp[1].link)
+            prev_temp[1].link = node
+            
 
-        #     if prev_temp[1].item == None:
-        #         node.link = self.head
-        #         self.head = node
-        #         print(prev_temp[1].item)
-        # # print("prev_temp_before", prev_temp.item)
-        #     else:
-        #         prev_temp[1].link = node
-        # print (prev_temp[1].item)
-                  
+    def delete_first(self):
+        self.head = self.head.link            # type: ignore
+            
+
+    def delete_last(self):
+        temp = self.head
+        
+        if self.head == None:
+            pass
+        
+        elif self.head.link is None:
+            self.head = None
+            
+        else:
+            while temp.link.link is not None:
+                #print(temp.item)
+                temp = temp.link
+            temp.link = None
+            
 
     def print_list(self):
         temp = self.head
@@ -91,7 +98,8 @@ sll.insert_at_last(50)
 sll.insert_at_first(10)
 sll.insert_before(sll.search(20),7)
 sll.insert_after(sll.search(40),25)
-
-
-
+sll.delete_first()
+sll.delete_last()
 sll.print_list()
+
+
